@@ -1,0 +1,18 @@
+name: Deployment to official site
+on:
+  push:
+    branches:
+      - main
+jobs:
+  FTP-Deploy-Action:
+    name: FTP-Deploy-Action
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2.1.0
+      
+      - name: FTP-Deploy-Action
+        uses: SamKirkland/FTP-Deploy-Action@4.3.0
+        with:
+          server: ${{ secrets.FTP_SERVER_CASA }}
+          username: ${{ secrets.FTP_USERNAME_CASA }}
+          password: ${{ secrets.FTP_PASSWORD_CASA }}
