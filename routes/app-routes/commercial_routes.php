@@ -11,6 +11,12 @@ use App\Http\Controllers\Commercial\Estimate\EstimateController;
 use App\Http\Controllers\Commercial\Invoice\InvoiceController;
 use App\Http\Controllers\Commercial\InvoiceAvoir\InvoiceAvoirController;
 use App\Http\Controllers\Commercial\Provider\ProviderController;
+
+use App\Http\Controllers\Commercial\Catalog\ProductController;
+use App\Http\Controllers\Commercial\Catalog\BrandController;
+use App\Http\Controllers\Commercial\Catalog\CategoryController;
+use App\Http\Controllers\Commercial\Catalog\ServiceController;
+
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'companies'], function () {
@@ -211,5 +217,40 @@ Route::group(['prefix' => 'bons-commands'], function () {
     Route::group(['prefix' => 'overview/order'], function () {
 
         Route::get('/{command}', [BCommandController::class, 'single'])->name('bcommandes.single');
+    });
+});
+
+
+Route::group(['prefix' => 'catalog'], function () {
+
+    Route::group(['prefix' => 'products'], function () {
+        Route::get('/', [ProductController::class, 'index'])->name('catalog.products');
+        Route::get('/create', [ProductController::class, 'create'])->name('catalog.products.create');
+        Route::post('/create', [ProductController::class, 'store'])->name('catalog.products.store');
+    });
+
+    Route::group(['prefix' => 'services'], function () {
+        Route::get('/', [ServiceController::class, 'index'])->name('catalog.services');
+        Route::get('/create', [ServiceController::class, 'create'])->name('catalog.services.create');
+        Route::post('/create', [ServiceController::class, 'store'])->name('catalog.services.store');
+    });
+
+    Route::group(['prefix' => 'categories'], function () {
+        Route::get('/', [CategoryController::class, 'index'])->name('catalog.categories');
+        Route::get('/create', [CategoryController::class, 'create'])->name('catalog.categories.create');
+        Route::post('/create', [CategoryController::class, 'store'])->name('catalog.categories.store');
+
+        Route::get('/edit/{category}', [CategoryController::class, 'edit'])->name('catalog.categories.edit');
+        Route::post('/edit/{category}', [CategoryController::class, 'update'])->name('catalog.categories.update');
+
+        Route::delete('/delete', [CategoryController::class, 'delete'])->name('catalog.categories.delete');
+    });
+
+    Route::group(['prefix' => 'brands'], function () {
+        Route::get('/', [BrandController::class, 'index'])->name('catalog.brands');
+        Route::get('/create', [BrandController::class, 'create'])->name('catalog.brands.create');
+        Route::post('/create', [BrandController::class, 'store'])->name('catalog.brands.store');
+
+        Route::delete('/delete', [BrandController::class, 'delete'])->name('catalog.brands.delete');
     });
 });

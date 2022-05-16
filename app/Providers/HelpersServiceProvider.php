@@ -15,7 +15,7 @@ class HelpersServiceProvider extends ServiceProvider
     public function register()
     {
 
-        $this->app->singleton('ticketapp', function () {
+        $this->app->singleton('sameleon', function () {
 
             return Helper::new();
             

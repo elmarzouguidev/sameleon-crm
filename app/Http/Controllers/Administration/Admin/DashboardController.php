@@ -5,14 +5,13 @@ namespace App\Http\Controllers\Administration\Admin;
 use App\Constants\Etat;
 use App\Constants\Status;
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Application\Ticket\TicketLivrableFormRequest;
+
 use App\Models\Client;
 use App\Models\Finance\Bill;
 use App\Models\Finance\Company;
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
-use App\Models\Ticket;
-use App\Models\Utilities\Delivery;
+
 use Illuminate\Http\Request;
 use Spatie\QueryBuilder\AllowedFilter;
 use Spatie\QueryBuilder\QueryBuilder;
@@ -24,30 +23,6 @@ class DashboardController extends Controller
 
     public function index()
     {
-
-        //dd(now()->addDays(10)->toDateString());
-        $allTicket = Ticket::all(['status', 'etat', 'can_invoiced']);
-
-        $ticketsLast = $allTicket->filter(function ($ticket) {
-            return $ticket->user_id === null
-                &&
-                $ticket->status === Status::NON_TRAITE
-                ||
-                $ticket->etat === Etat::NON_DIAGNOSTIQUER;
-        })->count();
-
-        $ticketsPret = $allTicket->filter(function ($ticket) {
-            return $ticket->pret_a_facture === true
-                &&
-                $ticket->status === Status::PRET_A_ETRE_LIVRE;
-        })->count();
-
-        $tickets = $allTicket->filter(function ($ticket) {
-            return $ticket->can_invoiced === true;
-
-        })->count();
-
-        $ticketsCount = $allTicket->count();
 
         if (request()->has('appFilter') && request()->filled('appFilter')) {
             // QueryBuilderRequest::setArrayValueDelimiter('|');
@@ -128,15 +103,9 @@ class DashboardController extends Controller
             ];
         }
 
-        $companies = Company::select(['id', 'uuid', 'name'])->get();
-
         return view(
             'theme.pages.Home.index',
             compact(
-                'tickets',
-                'ticketsCount',
-                'ticketsLast',
-                'ticketsPret',
                 'latest',
                 'chiffreAff',
                 'chiffreBills',
@@ -144,84 +113,10 @@ class DashboardController extends Controller
                 'invoicesNotPaid',
                 'invoicesRetard',
                 'allInvoices',
-                'companies',
                 'allEstimates',
                 'estimatesNotInvoiced',
                 'estimatesExpired'
             )
         );
-    }
-
-    public function ticketLivrable()
-    {
-        if (auth()->user()->hasRole('Reception')) {
-            $tickets = Ticket::whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
-                ->whereLivrable(true)
-                ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
-                ->withCount('delivery')
-                ->get();
-        }
-
-        if (auth()->user()->hasAnyRole('SuperAdmin', 'Admin')) {
-            $tickets = Ticket::whereIn('etat', [Etat::REPARABLE, Etat::NON_REPARABLE])
-                ->whereIn('status', [Status::PRET_A_ETRE_LIVRE, Status::RETOUR_NON_REPARABLE, Status::RETOUR_DEVIS_NON_CONFIRME])
-                //->withCount('delivery')
-                ->get();
-        }
-        return view('theme.pages.Ticket.__pret_livre.__datatable.index', compact('tickets'));
-    }
-
-    public function confirmLivrable(TicketLivrableFormRequest $request)
-    {
-        $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
-
-        if ($ticket) {
-            $delivery = new Delivery();
-            $delivery->date_end = $request->date_end;
-            $delivery->mode = $request->mode;
-            $delivery->info_client = $request->info_client;
-            $delivery->notes = $request->notes;
-            $delivery->ticket_id = $ticket->id;
-            $delivery->user_id = auth()->id();
-            $delivery->save();
-            $ticket->update(['status' => Status::LIVRE]);
-            $ticket->statuses()->attach(
-                Status::LIVRE,
-                [
-                    'user_id' => auth()->id(),
-                    'start_at' => now(),
-                    'description' => __('status.history.' . Status::LIVRE, ['user' => auth()->user()->full_name])
-                ]);
-
-            $ticket->warranty()->create([
-                'start_at' => now(),
-                'end_at' => now()->addMonths(3),
-                'description' => 'la garantie a été commancé '
-            ]);
-        }
-        return redirect()->back()->with('success', 'Ticket  été Livré');
-    }
-
-    public function confirmLivrableAdmin(Request $request)
-    {
-        $request->validate(['ticket' => 'required|uuid']);
-        $ticket = Ticket::whereUuid($request->ticket)->firstOrFail();
-        if ($ticket) {
-            $ticket->update(['livrable' => true]);
-        }
-        return redirect()->back()->with('success', 'La livraison a été confrimé pour ce ticket');
-    }
-
-
-    public function invoiceable()
-    {
-        $tickets = Ticket::whereEtat(Etat::REPARABLE)
-            ->whereIn('status', [Status::PRET_A_ETRE_LIVRE])
-            ->where('can_invoiced', true)
-            ->with('client:id,entreprise', 'technicien:id,nom,prenom')
-            ->withCount('invoice')
-            ->get();
-
-        return view('theme.pages.Ticket.__invoiceable.__datatable.index', compact('tickets'));
     }
 }

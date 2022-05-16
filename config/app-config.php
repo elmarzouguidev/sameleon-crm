@@ -18,12 +18,6 @@ return [
         'cache-live-time' => 30
     ],
 
-    'tickets' => [
-
-        'prefix' => 'TCK',
-        'start_from' => 256
-    ],
-
     'clients' => [
 
         'prefix' => 'CLT',

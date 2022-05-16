@@ -13,18 +13,7 @@ class RepositoryServiceProvider extends ServiceProvider
             'abstract' => "App\Repositories\Admin\AdminInterface",
             'concrete' => "App\Repositories\Admin\AdminRepository"
         ],
-        [
-            'abstract' => "App\Repositories\Technicien\TechnicienInterface",
-            'concrete' => "App\Repositories\Technicien\TechnicienRepository"
-        ],
-        [
-            'abstract' => "App\Repositories\Reception\ReceptionInterface",
-            'concrete' => "App\Repositories\Reception\ReceptionRepository"
-        ],
-        [
-            'abstract' => "App\Repositories\Ticket\TicketInterface",
-            'concrete' => "App\Repositories\Ticket\TicketRepository"
-        ],
+
         [
             'abstract' => "App\Repositories\Category\CategoryInterface",
             'concrete' => "App\Repositories\Category\CategoryRepository"
@@ -33,19 +22,11 @@ class RepositoryServiceProvider extends ServiceProvider
             'abstract' => "App\Repositories\Client\ClientInterface",
             'concrete' => "App\Repositories\Client\ClientRepository"
         ],
-        [
-            'abstract' => "App\Repositories\Company\CompanyInterface",
-            'concrete' => "App\Repositories\Company\CompanyRepository"
-        ],
+
         [
             'abstract' => "App\Repositories\Provider\ProviderInterface",
             'concrete' => "App\Repositories\Provider\ProviderRepository"
         ],
-
-        [
-            'abstract' => "App\Repositories\Document\DocumentInterface",
-            'concrete' => "App\Repositories\Document\DocumentRepository"
-        ]
     ];
     /**
      * Register services.

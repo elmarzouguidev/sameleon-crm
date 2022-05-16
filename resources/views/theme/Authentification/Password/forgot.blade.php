@@ -4,7 +4,7 @@
 <head>
 
     <meta charset="utf-8"/>
-    <title>Forgot | ERP CASAMAINTENANCE</title>
+    <title>Forgot |  SAMELEON CRM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- App favicon -->
     <link rel="shortcut icon" href="{{ asset('assets/images/favicon.ico') }}">
@@ -85,7 +85,7 @@
                     <script>
                         document.write(new Date().getFullYear())
                     </script>
-                    ERP CASAMAINTENANCE <i class="mdi mdi-heart text-danger"></i> by HayMacProduction
+                   SAMELEON CRM <i class="mdi mdi-heart text-danger"></i> by Elmarzougui.net
                 </div>
 
             </div>
