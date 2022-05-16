@@ -19,19 +19,11 @@ class CreateEstimatesTable extends Migration
             $table->uuid('uuid')->unique();
 
             $table->foreignId('invoice_id')
-                //->index()
+                ->index()
                 ->nullable();
             $table->foreignId('client_id')
-                //->index()
-                ->nullable()
-                ->constrained();
-            $table->foreignId('ticket_id')
-                //->index()
-                ->nullable()
-                ->constrained();
-            $table->foreignId('company_id')
-                //->index()
-                ->constrained();
+                ->index()
+                ->nullable();
 
             $table->string('code');
             $table->string('full_number')->unique();

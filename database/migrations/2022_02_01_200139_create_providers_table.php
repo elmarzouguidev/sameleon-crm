@@ -35,8 +35,7 @@ class CreateProvidersTable extends Migration
 
             $table->foreignId('category_id')
                 ->nullable()
-                ->index()
-                ->constrained();
+                ->index();
 
             $table->timestamps();
             $table->softDeletes();

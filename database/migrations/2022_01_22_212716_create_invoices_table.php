@@ -23,9 +23,9 @@ class CreateInvoicesTable extends Migration
             $table->string('bl_code')->nullable();
             $table->string('bc_code')->nullable();
 
-            $table->unsignedBigInteger('price_ht')->default(0);
-            $table->unsignedBigInteger('price_total')->default(0);
-            $table->unsignedBigInteger('price_tva')->default(0);
+            $table->string('price_ht')->default(0);
+            $table->string('price_total')->default(0);
+            $table->string('price_tva')->default(0);
 
             $table->string('status')->default('impayee');
 
@@ -35,7 +35,6 @@ class CreateInvoicesTable extends Migration
             $table->date('due_date')->nullable();
             $table->date('payment_date')->nullable();
 
-            $table->enum('type', ['normal', 'avoir'])->default('normal');
             $table->boolean('has_avoir')->default(false);
             $table->boolean('is_paid')->default(false);
 
@@ -46,16 +45,8 @@ class CreateInvoicesTable extends Migration
             $table->mediumText('condition_general')->nullable();
 
             $table->foreignId('client_id')
-                //->index()
-                ->nullable()
-                ->constrained();
-            $table->foreignId('ticket_id')
-                //->index()
-                ->nullable()
-                ->constrained();
-            $table->foreignId('company_id')
-                //->index()
-                ->constrained();
+                ->index()
+                ->nullable();
 
             $table->timestamps();
             $table->softDeletes();

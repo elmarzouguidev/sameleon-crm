@@ -20,8 +20,8 @@ class CreateCommentsTable extends Migration
 
             $table->longText('content');
             
-            $table->bigInteger('comment_id');
-            $table->string('comment_type');
+            $table->bigInteger('commentable_id');
+            $table->string('commentable_type');
 
             $table->timestamps();
             $table->softDeletes();

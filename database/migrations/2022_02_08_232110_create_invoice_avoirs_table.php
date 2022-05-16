@@ -26,9 +26,9 @@ class CreateInvoiceAvoirsTable extends Migration
             $table->string('bc_code')->nullable();
             
 
-            $table->unsignedBigInteger('price_ht')->default(0);
-            $table->unsignedBigInteger('price_total')->default(0);
-            $table->unsignedBigInteger('price_tva')->default(0);
+            $table->string('price_ht')->default(0);
+            $table->string('price_total')->default(0);
+            $table->string('price_tva')->default(0);
 
             $table->string('status')->default('impayee');
 
@@ -36,9 +36,8 @@ class CreateInvoiceAvoirsTable extends Migration
             $table->date('due_date')->nullable();
             $table->date('payment_date')->nullable();
 
-            $table->foreignId('client_id')->index()->nullable()->constrained();
-            $table->foreignId('ticket_id')->index()->nullable();
-            $table->foreignId('company_id')->index()->constrained();
+            $table->foreignId('client_id')->index()->nullable();
+
             $table->foreignId('invoice_id')->index()->nullable();
 
             $table->mediumText('admin_notes')->nullable();
