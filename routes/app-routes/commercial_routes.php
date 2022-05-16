@@ -1,6 +1,8 @@
 <?php
 
-use App\Http\Controllers\Administration\Document\DocumentController;
+use App\Http\Controllers\Administration\Client\ClientController;
+use App\Http\Controllers\Administration\Client\ImportClientController;
+
 use App\Http\Controllers\Administration\Invoice\PDFBuilderController;
 use App\Http\Controllers\Commercial\BCommand\BCommandController;
 use App\Http\Controllers\Commercial\Bill\BillController;
@@ -25,6 +27,29 @@ Route::group(['prefix' => 'companies'], function () {
         Route::get('/{company}', [CompanyController::class, 'edit'])->name('companies.edit');
         Route::post('/{company}', [CompanyController::class, 'update'])->name('companies.update');
     });
+});
+
+Route::group(['prefix' => 'clients'], function () {
+
+    Route::get('/', [ClientController::class, 'index'])->name('clients.index');
+    Route::get('/create', [ClientController::class, 'create'])->name('clients.create');
+    Route::post('/create', [ClientController::class, 'store'])->name('clients.createPost');
+    Route::delete('/delete', [ClientController::class, 'delete'])->name('clients.delete');
+
+    Route::get('/edit/{client}', [ClientController::class, 'edit'])->name('client.edit');
+    Route::post('/edit/{client}', [ClientController::class, 'update'])->name('client.update');
+    Route::post('/edit/{client}/emails', [ClientController::class, 'addEmails'])->name('client.add.emails');
+
+    Route::post('/edit/{client}/phones', [ClientController::class, 'addPhones'])->name('client.add.phones');
+
+    Route::delete('edit/delete-phone', [ClientController::class, 'deletePhone'])->name('client.delete.phone');
+    Route::delete('edit/delete-email', [ClientController::class, 'deleteEmail'])->name('client.delete.email');
+
+    Route::group(['prefix' => 'overview'], function () {
+        Route::get('/client/{client}', [ClientController::class, 'show'])->name('clients.show');
+    });
+
+    Route::post('/import',[ImportClientController::class,'import'])->name('clients.import');
 });
 
 Route::group(['prefix' => 'invoices', 'middleware' => 'role_or_permission:SuperAdmin|invoices.browse'], function () {
