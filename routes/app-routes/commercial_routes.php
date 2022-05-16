@@ -227,6 +227,8 @@ Route::group(['prefix' => 'catalog'], function () {
         Route::get('/', [ProductController::class, 'index'])->name('catalog.products');
         Route::get('/create', [ProductController::class, 'create'])->name('catalog.products.create');
         Route::post('/create', [ProductController::class, 'store'])->name('catalog.products.store');
+
+        Route::delete('/delete', [ProductController::class, 'delete'])->name('catalog.products.delete');
     });
 
     Route::group(['prefix' => 'services'], function () {

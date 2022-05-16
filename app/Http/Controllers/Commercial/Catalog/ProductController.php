@@ -18,7 +18,7 @@ class ProductController extends Controller
     {
         $products = Product::with('media')->get();
 
-        return view('theme.pages.Catalog.Product.index', compact('products'));
+        return view('theme.pages.Catalog.Product.__datatable.index', compact('products'));
     }
 
     public function create()
@@ -38,13 +38,17 @@ class ProductController extends Controller
         $product = new Product();
         $product->name = $request->name;
         $product->reference = $request->reference;
-        $product->buy_price = $request->buy_price;
-        $product->sell_price = $request->sell_price;
+        $product->price = $request->price;
+        $product->quantity = $request->quantity;
+
         $product->description = $request->description;
-        $product->brand()->associate($request->brand);
+        //$product->brand()->associate($request->brand);
         $product->category()->associate($request->category);
 
-        $product->colors()->attach($request->colors);
+        if($request->has('colors') &&  $request->filled('colors'))
+        {
+            $product->colors()->attach($request->colors);
+        }
 
         $product->save();
 

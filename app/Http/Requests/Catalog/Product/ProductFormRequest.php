@@ -27,11 +27,11 @@ class ProductFormRequest extends FormRequest
         return [
 
             'name' => ['required', 'string'],
-            'brand' => ['required', 'integer'],
+            'brand' => ['nullable', 'integer'],
             'reference' => ['required', 'string', Rule::unique('products')],
-            'buy_price' => ['nullable', 'numeric'],
-            'sell_price' => ['required', 'numeric'],
-            'category' => ['required', 'integer'],
+            'price' => ['nullable', 'numeric'],
+            'quantity'=>['required', 'numeric'],
+            'category' => ['nullable', 'integer'],
 
             'colors' => ['nullable', 'array'],
             'colors.*' => ['nullable', 'integer'],

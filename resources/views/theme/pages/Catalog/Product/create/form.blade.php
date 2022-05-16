@@ -2,8 +2,6 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-
-                <h4 class="card-title">Basic Information</h4>
                 <p class="card-title-desc">Fill all information below</p>
                 @include('theme.layouts._parts.__messages')
                 <form action="{{route('commercial:catalog.products.store')}}" method="post" enctype="multipart/form-data">
@@ -45,25 +43,31 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="mb-3">
-                                <label for="buy_price">prix d’achat</label>
-                                <input id="buy_price" name="buy_price" type="number"
-                                    class="form-control @error('buy_price') is-invalid @enderror" value="{{old('buy_price')}}">
-                                @error('buy_price')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                            <div class="mb-3">
-                                <label for="sell_price">prix de vente *</label>
-                                <input id="sell_price" name="sell_price" type="number"
-                                    class="form-control  @error('sell_price') is-invalid @enderror" value="{{old('sell_price')}}" required>
-                                @error('sell_price')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="price">Prix *</label>
+                                        <input id="price" name="price" type="number"
+                                            class="form-control @error('price') is-invalid @enderror" value="{{old('price')}}">
+                                        @error('price')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="mb-3">
+                                        <label for="price">Quantité *</label>
+                                        <input id="price" name="quantity" type="number"
+                                            class="form-control @error('quantity') is-invalid @enderror" value="{{old('quantity')}}">
+                                        @error('quantity')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
+                                    </div>
+                                </div>
                             </div>
                         </div>
 
@@ -83,7 +87,7 @@
                                     </span>
                                 @enderror
                             </div>
-                            <div class="mb-3">
+                            {{--<div class="mb-3">
                                 <label class="control-label">Couleurs</label>
 
                                 <select
@@ -100,7 +104,7 @@
                                         <strong>{{ $message }}</strong>
                                     </span>
                                 @enderror
-                            </div>
+                            </div>--}}
                             <div class="mb-3">
                                 <label for="productdesc">Description</label>
                                 <textarea class="form-control  @error('description') is-invalid @enderror" name="description" id="productdesc"
@@ -129,7 +133,7 @@
                     </div>
 
                     <div class="d-flex flex-wrap gap-2">
-                        <button type="submit" class="btn btn-primary waves-effect waves-light">Save Changes</button>
+                        <button type="submit" class="btn btn-primary waves-effect waves-light">Ajouter</button>
                         <button type="button" class="btn btn-secondary waves-effect waves-light">Cancel</button>
                     </div>
                 </form>
