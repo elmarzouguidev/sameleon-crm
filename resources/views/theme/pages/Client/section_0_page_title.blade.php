@@ -6,9 +6,9 @@
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item"><a
-                            href="{{ route('admin:clients.index') }}">{{ __('navbar.clients') }}</a></li>
+                            href="{{ route('commercial:clients.index') }}">{{ __('navbar.clients') }}</a></li>
                     <li class="breadcrumb-item"><a
-                            href="{{ route('admin:clients.create') }}">{{ __('navbar.clients_add') }}</a></li>
+                            href="{{ route('commercial:clients.create') }}">{{ __('navbar.clients_add') }}</a></li>
                 </ol>
             </div>
 

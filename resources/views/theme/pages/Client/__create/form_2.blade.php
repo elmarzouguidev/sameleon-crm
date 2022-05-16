@@ -21,7 +21,7 @@
                     @endforeach
                 @endif
 
-                <form class="outer-repeater" id="clientForm" action="{{ route('admin:clients.createPost') }}"
+                <form class="outer-repeater" id="clientForm" action="{{ route('commercial:clients.createPost') }}"
                     method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="row">

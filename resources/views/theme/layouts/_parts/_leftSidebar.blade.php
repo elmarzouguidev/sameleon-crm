@@ -37,24 +37,24 @@
                                     Catégories
                                 </a>
                             </li>
-                            <li>
+                            {{--<li>
                                 <a href="{{ route('commercial:catalog.brands') }}" key="t-brands-list">
                                     <i class="bx bx-play"></i>
                                     Marques
                                 </a>
-                            </li>
+                            </li>--}}
                             <li>
                                 <a href="{{ route('commercial:catalog.products') }}" key="t-products-list">
                                     <i class="bx bx-play"></i>
-                                    Products
+                                    Produits
                                 </a>
                             </li>
-                            <li>
+                            {{--<li>
                                 <a href="{{ route('commercial:catalog.services') }}" key="t-services-list">
                                     <i class="bx bx-play"></i>
                                     Services
                                 </a>
-                            </li>
+                            </li>--}}
 
                         </ul>
                     </li>

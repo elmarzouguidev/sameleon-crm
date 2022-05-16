@@ -20,7 +20,7 @@ class ClientController extends Controller
 
     public function index()
     {
-        $clients = app(ClientInterface::class)->__instance()->withCount('tickets')->get();
+        $clients = app(ClientInterface::class)->__instance()->get();
 
         return view('theme.pages.Client.__datatable.index', compact('clients'));
     }

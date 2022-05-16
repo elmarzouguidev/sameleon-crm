@@ -51,11 +51,6 @@ class Client extends Model implements HasMedia
         return $this->morphMany(Email::class, 'emailable');
     }
 
-    public function tickets()
-    {
-        return $this->hasMany(Ticket::class);
-    }
-
     public function invoicesAvoir()
     {
         return $this->hasMany(InvoiceAvoir::class);
@@ -83,17 +78,17 @@ class Client extends Model implements HasMedia
 
     public function getEditAttribute()
     {
-        return route('admin:client.edit', $this->uuid);
+        return route('commercial:client.edit', $this->uuid);
     }
 
     public function getUpdateAttribute()
     {
-        return route('admin:client.update', $this->uuid);
+        return route('commercial:client.update', $this->uuid);
     }
 
     public function getUrlAttribute()
     {
-        return route('admin:clients.show', $this->uuid);
+        return route('commercial:clients.show', $this->uuid);
     }
 
     public function getFullDateAttribute()

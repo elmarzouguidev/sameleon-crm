@@ -6,7 +6,7 @@
                     <div class="col-lg-8">
 
                         <div class="col-lg-12 mb-4">
-                            <a href="{{ route('admin:clients.create') }}" type="button" class="btn btn-info">
+                            <a href="{{ route('commercial:clients.create') }}" type="button" class="btn btn-info">
                                 {{ __('navbar.clients_add') }}
                             </a>
                             <button class="btn btn-primary" type="button" data-bs-toggle="modal"
@@ -46,7 +46,6 @@
                         <th scope="col">Email</th>
                         <th scope="col">ICE</th>
                         <th scope="col">RC</th>
-                        <th scope="col">Tickets</th>
                         @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                             <th scope="col">Action</th>
                         @endif
@@ -85,9 +84,6 @@
                             <td>
                                 {{ $client->rc }}
                             </td>
-                            <td>
-                                {{ $client->tickets_count }}
-                            </td>
                             @if(auth()->user()->hasAnyRole('Admin','SuperAdmin'))
                                 <td>
                                     <div class="d-flex gap-3">
@@ -107,7 +103,7 @@
                                     </div>
                                 </td>
                                 <form id="delete-client-{{ $client->uuid }}" method="post"
-                                      action="{{ route('admin:clients.delete') }}">
+                                      action="{{ route('commercial:clients.delete') }}">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="clientId" value="{{ $client->uuid }}">

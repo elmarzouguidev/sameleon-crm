@@ -7,7 +7,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form class="addEmail" id="addEmail" action="{{route('admin:client.add.emails',$client->uuid)}}"
+                <form class="addEmail" id="addEmail" action="{{route('commercial:client.add.emails',$client->uuid)}}"
                       method="post">
                     @csrf
                     <div class="card">

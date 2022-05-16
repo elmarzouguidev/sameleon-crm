@@ -25,7 +25,7 @@
 <body  data-sidebar="dark" data-sidebar-size="small-">
 
     <!-- Loader -->
-    <div id="preloader">
+    {{--<div id="preloader">
         <div id="status">
             <div class="spinner-chase">
                 <div class="chase-dot"></div>
@@ -36,7 +36,7 @@
                 <div class="chase-dot"></div>
             </div>
         </div>
-    </div>
+    </div>--}}
     <!-- <body data-layout="horizontal" data-topbar="dark"> -->
 
     <div id="layout-wrapper">
