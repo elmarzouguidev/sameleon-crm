@@ -13,6 +13,6 @@ jobs:
       - name: FTP-Deploy-Action
         uses: SamKirkland/FTP-Deploy-Action@4.3.0
         with:
-          server: ${{ secrets.FTP_SERVER_CASA }}
-          username: ${{ secrets.FTP_USERNAME_CASA }}
-          password: ${{ secrets.FTP_PASSWORD_CASA }}
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
