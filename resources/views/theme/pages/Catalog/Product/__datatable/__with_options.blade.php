@@ -71,7 +71,7 @@
                                 <td>
                                     <div class="d-flex gap-3">
 
-                                        <a href="{{ $product->edit_url }}" class="text-success">
+                                        <a href="{{ route('commercial:catalog.products.edit',$product->uuid) }}" class="text-success">
                                             <i class="mdi mdi-pencil font-size-18"></i>
                                         </a>
                                         <a href="#" class="text-danger" onclick="
