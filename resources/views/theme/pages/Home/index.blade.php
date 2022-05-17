@@ -1,6 +1,7 @@
 @extends('theme.layouts.app')
 
 @section('content')
+
     <div class="container-fluid">
 
         @include('theme.pages.Home.sections.section_0_page_title')
