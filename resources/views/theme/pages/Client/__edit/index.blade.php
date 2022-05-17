@@ -36,7 +36,7 @@
             if (result) {
 
                 $.ajax({
-                    url: "{{ route('admin:client.delete.phone') }}",
+                    url: "{{ route('commercial:client.delete.phone') }}",
                     type: 'DELETE',
                     data: {
                         "client": client,
@@ -68,7 +68,7 @@
             if (result) {
 
                 $.ajax({
-                    url: "{{ route('admin:client.delete.email') }}",
+                    url: "{{ route('commercial:client.delete.email') }}",
                     type: 'DELETE',
                     data: {
                         "client": client,

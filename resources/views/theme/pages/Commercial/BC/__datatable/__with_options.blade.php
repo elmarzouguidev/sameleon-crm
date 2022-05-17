@@ -55,12 +55,9 @@
                                 </div>
                             </td>--}}
                             <td>
-                                <a href="{{ $command->url }}" class="text-body fw-bold">
+                                <a href="{{--$command->url--}}#" class="text-body fw-bold">
                                     {{ $command->full_number }}
                                 </a>
-                                <p style="color:#556ee6">
-                                    <i class="bx bx-buildings"></i> {{ optional($command->company)->name }}
-                                </p>
                             </td>
                             <td> {{ optional($command->provider)->entreprise }}</td>
                             <td>
@@ -79,7 +76,7 @@
                                 {{ $command->date_due }}
                             </td>--}}
                             <td>
-                                <a href="{{ $command->url }}" type="button"
+                                <a href="{{ $command->edit_url }}" type="button"
                                    class="btn btn-primary btn-sm btn-rounded">
                                     Voir les détails
                                 </a>

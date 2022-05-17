@@ -158,7 +158,7 @@ class BCommandController extends Controller
         $command->admin_notes = $request->admin_notes;
 
         $command->provider()->associate($request->provider);
-        
+
         $command->save();
 
         $command->articles()->createMany($newArticles);
@@ -176,7 +176,6 @@ class BCommandController extends Controller
     public function deleteCommand(Request $request)
     {
         // dd($request->all());
-
 
         $request->validate(['commandId' => 'required|uuid']);
 
@@ -204,11 +203,7 @@ class BCommandController extends Controller
 
     public function deleteArticle(BCDeleteArticleFormRequest $request)
     {
-
-
-
-        //dd($request->all());
-
+        
         $command = BCommand::whereUuid($request->command)->firstOrFail();
 
         $article = Article::whereUuid($request->article)->firstOrFail();
