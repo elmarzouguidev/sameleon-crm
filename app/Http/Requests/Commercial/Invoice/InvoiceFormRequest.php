@@ -28,11 +28,7 @@ class InvoiceFormRequest extends FormRequest
         return [
 
             'client' => ['required', 'integer'],
-            'company' => ['required', 'integer'],
-            'ticket' => ['nullable', 'integer'],
-
-            'tickets' => ['nullable', 'array'],
-
+            
             'invoice' => ['nullable', 'numeric'], //avoir invoice
 
             'bl_code' => ['nullable', 'string'],

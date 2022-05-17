@@ -3,7 +3,7 @@
 namespace App\Models\Finance;
 
 use App\Models\Client;
-use App\Models\Ticket;
+
 use App\Models\Utilities\History;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
@@ -43,21 +43,6 @@ class Invoice extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
-    }
-
-    public function ticket()
-    {
-        return $this->belongsTo(Ticket::class)->withDefault();
-    }
-
-    public function tickets()
-    {
-        return $this->belongsToMany(Ticket::class, 'ticket_invoice', 'invoice_id', 'ticket_id');
-    }
-
-    public function company()
-    {
-        return $this->belongsTo(Company::class)->withDefault();
     }
 
     public function articles()
@@ -141,13 +126,6 @@ class Invoice extends Model
     public function scopeFiltersDateInvoice(Builder $query, $from): Builder
     {
         return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
-    }
-
-    public function scopeFiltersCompanies(Builder $query, $company)
-    {
-        //$company = Company::whereUuid($company)->firstOrFail()->id;
-
-        return $query->where('company_id', $company);
     }
 
     public function scopeFiltersClients(Builder $query, $client)
@@ -236,19 +214,19 @@ class Invoice extends Model
 
         static::creating(function ($model) {
 
-            if ($model->company->invoices->count() <= 0) {
-                //dd('OOO empty');
-                $number = $model->company->invoice_start_number;
+            if (self::count() <= 0) {
+
+                $number = getDocument()->invoice_start;
             } else {
-                //dd('Not empty ooo');
-                $number = ($model->company->invoices->max('code') + 1);
+
+                $number = ($model->max('code') + 1);
             }
 
-            $invoiceCode = str_pad($number, 5, 0, STR_PAD_LEFT);
+            $code = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            $model->code = $invoiceCode;
+            $model->code = $code;
 
-            $model->full_number = $model->company->prefix_invoice . $invoiceCode;
+            $model->full_number = getDocument()->invoice_prefix . $code;
         });
     }
 }

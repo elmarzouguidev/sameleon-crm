@@ -64,12 +64,9 @@
                                 </div>
                             </td> --}}
                             <td>
-                                <a href="{{ $invoice->url }}" class="text-body fw-bold">
+                                <a href="{{-- $invoice->url --}}#" class="text-body fw-bold">
                                     <i class="bx bx-hash"></i> {{ $invoice->code }}
                                 </a>
-                                <p style="color:#556ee6">
-                                    <i class="bx bx-buildings"></i> {{ optional($invoice->company)->name }}
-                                </p>
                             </td>
                             <td> {{ optional($invoice->client)->entreprise }}</td>
                             <td>
@@ -112,7 +109,7 @@
                                 {{ $textt }}
                             </td>
                             <td>
-                                @if ($invoice->bill_count && $invoice->status === 'paid' && !$invoice->avoir_count)
+                                @if ($invoice->bill_count && $invoice->status == 'paid' && !$invoice->avoir_count)
                                     <button type="button" class="btn btn-info  btn-sm" data-bs-toggle="modal"
                                             data-bs-target=".orderdetailsModal-{{ $invoice->id }}">
                                         Détails

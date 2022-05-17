@@ -33,32 +33,27 @@ class BCommandController extends Controller
 
             $commandes = QueryBuilder::for(BCommand::class)
                 ->allowedFilters([
-                    //'company_id'
-                    //AllowedFilter::exact('etat')
                     AllowedFilter::scope('GetBCDate', 'filters_date_bc'),
-                    AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetProvider', 'filters_providers'),
 
                 ])
-                ->with(['company', 'provider','provider.emails'])
+                ->with(['provider','provider.emails'])
                 ->paginate(100)
                 ->appends(request()->query());
             //->get();
         } else {
-            $commandes = BCommand::with(['provider', 'provider.emails', 'company'])->get();
+            $commandes = BCommand::with(['provider', 'provider.emails'])->get();
         }
 
         $providers = app(ProviderInterface::class)->Providers(['id', 'uuid', 'entreprise', 'contact']);
 
-        $companies = Company::select(['id', 'name', 'uuid'])->get();
-
-        return view('theme.pages.Commercial.BC.index', compact('commandes', 'companies', 'providers'));
+        return view('theme.pages.Commercial.BC.index', compact('commandes','providers'));
     }
 
     public function index()
     {
 
-        $commandes = BCommand::with(['provider', 'provider.emails', 'company'])->get();
+        $commandes = BCommand::with(['provider', 'provider.emails'])->get();
 
         return view('theme.pages.Commercial.BC.index', compact('commandes'));
     }
@@ -108,8 +103,6 @@ class BCommandController extends Controller
 
         $command->provider()->associate($request->provider);
 
-        $command->company()->associate($request->company);
-
         $command->save();
 
         $command->articles()->createMany($commandArticles);
@@ -130,7 +123,7 @@ class BCommandController extends Controller
 
         $this->authorize('update', $command);
 
-        $command->load('articles', 'provider', 'provider.emails', 'company', 'histories');
+        $command->load('articles', 'provider', 'provider.emails','histories');
 
         return view('theme.pages.Commercial.BC.__edit.index', compact('command'));
     }
@@ -165,8 +158,7 @@ class BCommandController extends Controller
         $command->admin_notes = $request->admin_notes;
 
         $command->provider()->associate($request->provider);
-        $command->company()->associate($request->company);
-
+        
         $command->save();
 
         $command->articles()->createMany($newArticles);

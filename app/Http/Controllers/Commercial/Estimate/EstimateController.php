@@ -280,6 +280,7 @@ class EstimateController extends Controller
         $estimate = Estimate::whereUuid($request->estimater)->first();
         //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
         $emails = $request->input('emails.*.*');
+        
         if (CheckConnection::isConnected()) {
 
             if (isset($emails) && is_array($emails) && count($emails)) {

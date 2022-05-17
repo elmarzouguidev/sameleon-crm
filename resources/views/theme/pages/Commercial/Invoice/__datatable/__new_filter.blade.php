@@ -47,19 +47,6 @@
                                 PAYÉE</option>
                         </select>
                     </div>
-                    @foreach ($companies as $company)
-                        <div class="col-sm-auto">
-                            <div class="form-check">
-                                <input class="form-check-input chk-filter" type="radio" name="company"
-                                    id="company-{{ $company->id }}" value="{{ $company->id }}"
-                                    {{ in_array($company->id, explode(',', request()->input('appFilter.GetCompany'))) ? 'checked' : '' }}>
-
-                                <label class="form-check-label" for="company-{{ $company->id }}">
-                                    {{ $company->name }}
-                                </label>
-                            </div>
-                        </div>
-                    @endforeach
                     <div class="col-sm-auto">
                         <button type="submit" id="filterData" class="btn btn-primary w-md">filter</button>
                     </div>

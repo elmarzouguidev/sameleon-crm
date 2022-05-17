@@ -9,8 +9,7 @@
                 </div>
                 <div class="modal-body">
                     <p class="mb-2">FACTURE N° : <span class="text-primary">{{ $invoice->full_number }}</span></p>
-                    <p class="mb-2">Société  : <span class="text-primary">{{ optional($invoice->company)->name }}</span></p>
-                    <p class="mb-2">Client  : <span class="text-primary">{{ optional($invoice->client)->entreprise }}</span></p>
+                    <p class="mb-2">Client : <span class="text-primary">{{ optional($invoice->client)->entreprise }}</span></p>
 
                     <p class="mb-2">sélectionner les emails : </p>
                     <form class="sendInvoice" id="sendINVOICEForm-{{$invoice->uuid}}"

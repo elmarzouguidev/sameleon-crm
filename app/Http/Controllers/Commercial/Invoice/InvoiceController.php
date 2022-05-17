@@ -10,12 +10,12 @@ use App\Http\Requests\Commercial\Invoice\InvoiceUpdateFormRequest;
 use App\Http\Requests\Commercial\Invoice\SendEmailFormRequest;
 use App\Mail\Commercial\Invoice\SendInvoiceMail;
 use App\Models\Finance\Article;
-use App\Models\Finance\Company;
+
 use App\Models\Finance\Estimate;
 use App\Models\Finance\Invoice;
-use App\Models\Ticket;
+
 use App\Repositories\Client\ClientInterface;
-use App\Repositories\Company\CompanyInterface;
+
 use App\Services\Commercial\Taxes\TVACalulator;
 use App\Services\Mail\CheckConnection;
 use Illuminate\Http\Request;
@@ -37,18 +37,17 @@ class InvoiceController extends Controller
                     //'company_id'
                     //AllowedFilter::exact('etat')
                     AllowedFilter::scope('GetInvoiceDate', 'filters_date_invoice'),
-                    AllowedFilter::scope('GetCompany', 'filters_companies'),
                     AllowedFilter::scope('GetStatus', 'filters_status'),
                     AllowedFilter::scope('GetClient', 'filters_clients'),
 
                 ])
-                ->with(['company', 'client'])
+                ->with(['client'])
                 ->withCount('avoir')
                 ->paginate(100)
                 ->appends(request()->query());
             //->get();
         } else {
-            $invoices = Invoice::with(['company', 'client', 'bill'])->withCount('bill')
+            $invoices = Invoice::with(['client', 'bill'])->withCount('bill')
                 ->withCount(['avoir'])
                 //->with('avoir')
                 ->get();
@@ -56,27 +55,20 @@ class InvoiceController extends Controller
 
         $clients = app(ClientInterface::class)->getClients(['id', 'uuid', 'entreprise', 'contact']);
 
-        $companies = Company::select(['id', 'name', 'uuid'])->get();
-
-        return view('theme.pages.Commercial.Invoice.index', compact('invoices', 'companies', 'clients'));
+        return view('theme.pages.Commercial.Invoice.index', compact('invoices','clients'));
     }
 
     public function index()
     {
-        $invoices = Invoice::with(['company', 'client'])->paginate(5);
+        $invoices = Invoice::with(['client'])->paginate(5);
 
         return view('theme.pages.Commercial.Invoice.index', compact('invoices'));
     }
 
     public function create()
     {
-        $this->authorize('create', Invoice::class);
-        if (request()->has('ticket')) {
 
-            $ticket = Ticket::whereUuid(request()->ticket)->firstOrFail();
-            $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
-            return view('theme.pages.Commercial.Invoice.__create.index', compact('ticket', 'companies'));
-        }
+        $this->authorize('create', Invoice::class);
 
         return view('theme.pages.Commercial.Invoice.__create.index');
     }
@@ -84,6 +76,7 @@ class InvoiceController extends Controller
     public function single(Invoice $invoice)
     {
         $invoice->load('articles');
+
         return view('theme.pages.Commercial.Invoice.__detail.index', compact('invoice'));
     }
 
@@ -121,8 +114,6 @@ class InvoiceController extends Controller
         $invoice->price_tva = $this->calculateOnlyTva($totalPrice);
 
         $invoice->client_id = $request->client;
-        $invoice->ticket_id = $request->ticket;
-        $invoice->company_id = $request->company;
 
         $invoice->status = 'non-paid';
 
@@ -139,11 +130,6 @@ class InvoiceController extends Controller
 
         $invoice->articles()->createMany($invoicesArticles);
 
-        if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
-            //dd($request->tickets);
-            $invoice->tickets()->attach($request->tickets);
-        }
-
         $invoice->histories()->create([
             'user_id' => auth()->id(),
             'user' => auth()->user()->full_name,
@@ -151,14 +137,14 @@ class InvoiceController extends Controller
             'action' => 'add'
         ]);
 
-        return redirect($invoice->edit_url)->with('success', "La Facture  a éte crée avec success");
+        return redirect($invoice->edit_url)->with('success', "La Facture a éte crée avec success");
     }
 
     public function edit(Invoice $invoice)
     {
         $this->authorize('update', $invoice);
 
-        $invoice->load('articles', 'tickets:id,code,code_retour,uuid', 'histories')->loadCount('bill', 'tickets');
+        $invoice->load('articles','histories')->loadCount('bill');
 
         return view('theme.pages.Commercial.Invoice.__edit.index', compact('invoice'));
     }
@@ -201,10 +187,6 @@ class InvoiceController extends Controller
         $invoice->save();
         $invoice->articles()->createMany($newArticles);
 
-        if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
-            //dd($request->tickets);
-            $invoice->tickets()->sync($request->tickets);
-        }
         $invoice->histories()->create([
             'user_id' => auth()->id(),
             'user' => auth()->user()->full_name,
@@ -231,15 +213,13 @@ class InvoiceController extends Controller
                 ->where('articleable_id', $invoice->id)
                 ->delete();
 
-            $invoice->tickets()->detach();
-
             $invoice->estimate()->update(['is_invoiced' => false]);
 
             $invoice->histories()->delete();
 
             $invoice->delete();
 
-            return redirect(route('commercial:invoices.index'))->with('success', "La Facture  a éte supprimer avec success");
+            return redirect(route('commercial:invoices.index'))->with('success', "La Facture a été supprimer avec success");
         }
         return redirect(route('commercial:invoices.index'))->with('success', "erreur . . . ");
     }
@@ -247,6 +227,7 @@ class InvoiceController extends Controller
     public function deleteArticle(DeleteArticleFormRequest $request)
     {
         $invoice = Invoice::whereUuid($request->invoice)->firstOrFail();
+        
         $article = Article::whereUuid($request->article)->firstOrFail();
         
         $this->authorize('delete', $invoice);
@@ -300,6 +281,7 @@ class InvoiceController extends Controller
         $invoice = Invoice::whereUuid($request->invoice)->first();
         //dd($request->input('emails.*.*'),$request->collect('emails.*.*'));
         $emails = $request->input('emails.*.*');
+
         if (CheckConnection::isConnected()) {
 
             if (isset($emails) && is_array($emails) && count($emails)) {
@@ -320,7 +302,7 @@ class InvoiceController extends Controller
                 $invoice->histories()->create([
                     'user_id' => auth()->id(),
                     'user' => auth()->user()->full_name,
-                    'detail' => 'A envoyer la facture pa mail',
+                    'detail' => 'A envoyer la facture par mail',
                     'action' => 'send'
                 ]);
 

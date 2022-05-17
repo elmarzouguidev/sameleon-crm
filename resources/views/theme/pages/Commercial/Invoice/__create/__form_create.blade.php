@@ -10,14 +10,8 @@
 
                     <div class="row">
                         <div class="col-lg-6">
-
-                            @if (isset($ticket))
-                                {{--@include('theme.pages.Commercial.Invoice.__create.__info')--}}
-                                @livewire('commercial.invoice.create.info',['ticket'=>$ticket])
-                            @else
-                                @livewire('commercial.invoice.create.info')
-                            @endif
-
+                            @livewire('commercial.invoice.create.info')
+                     
                             <div class="col-lg-12">
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -42,7 +36,7 @@
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
                                                    class="form-control @error('due_date') is-invalid @enderror"
-                                                   name="due_date" value="{{ \ticketApp::invoiceDueDate() }}"
+                                                   name="due_date" value="{{ \sameleon::invoiceDueDate() }}"
                                                    data-date-format="yyyy-mm-dd" data-date-container='#datepicker2'
                                                    data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>

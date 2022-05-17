@@ -35,11 +35,6 @@ class InvoiceUpdateFormRequest extends FormRequest
         return [
 
             'client' => ['required', 'integer'],
-            'company' => ['required', 'integer'],
-
-            'ticket' => ['nullable', 'integer'],
-
-            'tickets' => ['nullable', 'array'],
 
             'bl_code' => ['nullable', 'string'],
             'bc_code' => ['nullable', 'string'],

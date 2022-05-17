@@ -27,7 +27,6 @@
     
     function filterResults() {
 
-        let comanyIds = getChecked("company");
 
         let statusIds = getStatus();
 
@@ -37,10 +36,6 @@
         // console.log(clientId);
 
         let href = '{{ collect(request()->segments())->last() }}?';
-
-        if (comanyIds.length) {
-            href += 'appFilter[GetCompany]=' + comanyIds;
-        }
 
         if (statusIds.length) {
             href += '&appFilter[GetStatus]=' + statusIds;

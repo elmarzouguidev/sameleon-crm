@@ -25,17 +25,15 @@
                     <p class="card-title-desc">{{ __('invoice.form.title') }}</p>
                     <div class="row">
                         <div class="col-lg-6">
-                            @if($invoice->tickets_count > 0)
-                                @include('theme.pages.Commercial.Invoice.__edit.__info_with_tickets')
-                            @else
-                                @include('theme.pages.Commercial.Invoice.__edit.__info')
-                            @endif
+
+                            @include('theme.pages.Commercial.Invoice.__edit.__info')
+                         
                             <div class="docs-options">
                                 <label class="form-label">Numéro de facture</label>
                                 <div class="input-group mb-4">
 
                                     <span class="input-group-text" id="invoice_prefix">
-                                        {{ \ticketApp::invoicePrefix() }}
+                                        {{ \sameleon::invoicePrefix() }}
                                     </span>
                                     <input type="text" class="form-control @error('code') is-invalid @enderror"
                                            name="code" value="{{ $invoice->code }}"
@@ -87,10 +85,6 @@
                                 </div>
                             </div>
 
-                            @if($invoice->tickets_count > 0)
-                                @include('theme.pages.Commercial.Invoice.__edit.__tickets')
-                            @endif
-
                             @include('theme.pages.Commercial.Invoice.__edit.b_info')
                         </div>
 
@@ -100,9 +94,9 @@
                                 <select name="payment_mode"
                                         class="form-control select2-templating @error('payment_mode') is-invalid @enderror"
                                     {{ $readOnly }}>
-                                    <option value="Espèce" {{$invoice->payment_mode ==='Espèce' ?'selected':''}}>Espèce</option>
-                                    <option value="Virement" {{$invoice->payment_mode ==='Virement' ?'selected':''}}>Virement  </option>
-                                    <option value="Chèque" {{$invoice->payment_mode ==='Chèque' ?'selected':''}}>Chèque</option>
+                                    <option value="Espèce" {{$invoice->payment_mode =='Espèce' ?'selected':''}}>Espèce</option>
+                                    <option value="Virement" {{$invoice->payment_mode =='Virement' ?'selected':''}}>Virement  </option>
+                                    <option value="Chèque" {{$invoice->payment_mode =='Chèque' ?'selected':''}}>Chèque</option>
 
                                 </select>
                                 @error('payment_mode')

@@ -1,29 +1,6 @@
 <div class="row">
 
-    <div class="col-lg-4" wire:ignore>
-        <div class="mb-4">
-            <label class="form-label">{{__('invoice.form.company')}} *</label>
-            <select name="company" id="selectcompany"
-                    class="form-control select2 @error('company') is-invalid @enderror" required>
-                <option value="">Choisir</option>
-
-                @foreach ($companies as $company)
-                    <option value="{{ $company->id }}">
-                        {{ $company->name }}
-                    </option>
-                @endforeach
-
-            </select>
-            @error('company')
-            <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-
-        </div>
-    </div>
-
-    <div class="col-lg-4" wire:ignore>
+    <div class="col-lg-12" wire:ignore>
         <div class="mb-4">
             <label class="form-label">{{__('invoice.form.client')}} *</label>
 
@@ -50,32 +27,6 @@
 
         </div>
     </div>
-
-    <div class="col-lg-4">
-        <div class="mb-4">
-            <label class="form-label">{{__('invoice.form.ticket')}}</label>
-            <select name="ticket" id="selectticket"
-                    class="form-select select2 @error('ticket') is-invalid @enderror">
-                @if(isset($ticket))
-                    <option value="{{ $ticket->id }}">{{ $ticket->code }}</option>
-                @else
-                    <option value="">Choisir</option>
-                    @foreach ($tickets as $ticket)
-                        <option value="{{ $ticket->id }}">{{ $ticket->code }}
-                        </option>
-                    @endforeach
-                @endif
-
-            </select>
-            @error('ticket')
-            <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-
-        </div>
-    </div>
-
     <div class="docs-options">
         <label class="form-label">{{__('invoice.form.number')}}</label>
         <div class="input-group mb-4">

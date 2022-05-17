@@ -1,27 +1,5 @@
 <div class="row">
-    <div class="col-lg-6">
-        <div class="mb-4">
-            <label class="form-label">{{__('invoice.form.company')}} *</label>
-            <select wire:model="selectCompany" name="company"
-                class="form-control @error('company') is-invalid @enderror" required>
-                <option value="">Choisir</option>
-
-                @foreach ($companies as $company)
-                    <option value="{{ $company->id }}" wire:key="{{ $loop->index }}">
-                        {{ $company->name }}
-                    </option>
-                @endforeach
-
-            </select>
-            @error('company')
-                <span class="invalid-feedback" role="alert">
-                    <strong>{{ $message }}</strong>
-                </span>
-            @enderror
-
-        </div>
-    </div>
-    <div class="col-lg-6">
+    <div class="col-lg-12">
         <div class="mb-4">
             <label class="form-label">Fournisseur *</label>
             <select  name="provider"

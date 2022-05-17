@@ -3,7 +3,7 @@
 namespace App\Models\Finance;
 
 use App\Models\Client;
-use App\Models\Ticket;
+
 use App\Models\Utilities\History;
 use App\Traits\GetModelByUuid;
 use App\Traits\UuidGenerator;
@@ -36,16 +36,6 @@ class InvoiceAvoir extends Model
     public function client()
     {
         return $this->belongsTo(Client::class);
-    }
-
-    public function ticket()
-    {
-        return $this->belongsTo(Ticket::class)->withDefault();
-    }
-
-    public function company()
-    {
-        return $this->belongsTo(Company::class);
     }
 
     public function articles()
@@ -114,13 +104,6 @@ class InvoiceAvoir extends Model
         return $query->where('client_id', $client);
     }
 
-    public function scopeFiltersCompanies(Builder $query, $company)
-    {
-        //$company = Company::whereUuid($company)->firstOrFail()->id;
-
-        return $query->where('company_id', $company);
-    }
-    
     public static function boot()
     {
 
@@ -128,19 +111,21 @@ class InvoiceAvoir extends Model
 
         static::creating(function ($model) {
 
-            if ($model->company->invoicesAvoir->count() <= 0) {
-                //dd('OOO empty');
-                $number = $model->company->invoice_avoir_start_number;
+
+            if (self::count() <= 0) {
+
+                $number = getDocument()->invoice_avoir_start;
             } else {
-                //dd('Not empty ooo');
-                $number = ($model->company->invoicesAvoir->max('code') + 1);
+
+                $number = ($model->max('code') + 1);
             }
 
-            $invoiceCode = str_pad($number, 5, 0, STR_PAD_LEFT);
+            $code = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            $model->code = $invoiceCode;
+            $model->code = $code;
 
-            $model->full_number = $model->company->prefix_invoice_avoir . $invoiceCode;
+            $model->full_number = getDocument()->invoice_avoir_prefix . $code;
         });
+
     }
 }

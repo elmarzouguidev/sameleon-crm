@@ -31,8 +31,6 @@
 
         let statusId = getStatus();
 
-        let comanyIds = getChecked("company");
-
         let sendId = getChecked("send");
 
         let getDate = getDateFilter();
@@ -41,10 +39,7 @@
 
         let href = '{{ collect(request()->segments())->last() }}?';
 
-        if (comanyIds.length) {
-            href += 'appFilter[GetCompany]=' + comanyIds;
-        }
-
+        
         if (statusId.length) {
             href += '&appFilter[GetStatus]=' + statusId;
         }
