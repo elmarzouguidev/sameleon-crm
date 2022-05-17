@@ -10,6 +10,6 @@ class HelperFacade extends Facade
 
     protected static function getFacadeAccessor(): string
     {
-        return 'ticketapp';
+        return 'sameleon';
     }
 }

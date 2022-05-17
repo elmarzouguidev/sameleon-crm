@@ -243,7 +243,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'PDF' => Barryvdh\DomPDF\Facade::class,
 
-        'ticketApp' => App\Helpers\HelperFacade::class
+        'sameleon' => App\Helpers\HelperFacade::class
 
     ],
 

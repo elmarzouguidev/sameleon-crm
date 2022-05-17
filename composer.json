@@ -47,7 +47,8 @@
             "Database\\Factories\\": "database/factories/",
             "Database\\Seeders\\": "database/seeders/",
             "Elmarzougui\\": "packages/"
-        }
+        },
+        "files": ["app/helpers.php"]
 
     },
     "autoload-dev": {

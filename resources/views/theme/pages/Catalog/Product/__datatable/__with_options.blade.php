@@ -27,7 +27,7 @@
                             <th>Nom</th>
                             <th>Réf</th>
                             <th>Quantité</th>
-                            <th>Prix</th>
+                            <th>Prix unitaire</th>
                     
                             <th>Action</th>
                         </tr>

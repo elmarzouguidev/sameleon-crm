@@ -37,7 +37,7 @@
                                         <div class="input-group" id="datepicker2">
                                             <input type="text"
                                                    class="form-control @error('due_date') is-invalid @enderror"
-                                                   name="due_date" value="{{ \ticketApp::estimateDueDate() }}"
+                                                   name="due_date" value="{{ \sameleon::estimateDueDate() }}"
                                                    data-date-format="yyyy-mm-dd" data-date-container='#datepicker2'
                                                    data-provide="datepicker" data-date-autoclose="true">
                                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
@@ -51,8 +51,6 @@
 
                                 </div>
                             </div>
-                            {{--@include('theme.pages.Commercial.Estimate.__create.__tickets')--}}
-                            @livewire('commercial.estimate.create.tickets')
                         </div>
 
                         <div class="col-lg-6">

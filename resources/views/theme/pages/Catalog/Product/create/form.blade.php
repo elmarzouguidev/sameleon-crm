@@ -46,7 +46,7 @@
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="mb-3">
-                                        <label for="price">Prix *</label>
+                                        <label for="price">Prix unitaire *</label>
                                         <input id="price" name="price" type="number"
                                             class="form-control @error('price') is-invalid @enderror" value="{{old('price')}}">
                                         @error('price')
