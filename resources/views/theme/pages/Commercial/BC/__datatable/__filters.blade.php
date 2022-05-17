@@ -34,10 +34,11 @@
                             @endforeach
 
                         </select>
+
                     </div>
 
                     <div class="col-sm-auto">
-                        <button type="submit" id="filterData" class="btn btn-primary w-md">filter</button>
+                        <button type="submit" id="filterData" class="btn btn-primary w-md">Filter</button>
                     </div>
                 </form>
             </div>
