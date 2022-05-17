@@ -21,7 +21,7 @@ class BRouterController extends Controller
 
             $commandes = QueryBuilder::for(BCommand::class)
                 ->allowedFilters([
-                    AllowedFilter::scope('GetBRDate', 'filters_date_bc'),
+                    AllowedFilter::scope('GetBRDate', 'filters_date_br'),
                     AllowedFilter::scope('GetProvider', 'filters_providers'),
 
                 ])

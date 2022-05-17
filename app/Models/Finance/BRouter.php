@@ -36,6 +36,11 @@ class BRouter extends Model
 
     // Helper Methods
 
+    public function scopeFiltersDateBr(Builder $query, $from): Builder
+    {
+        return $query->whereDate('created_at', Carbon::createFromFormat('d-m-Y', $from)->format('Y-m-d'));  
+    }
+    
     public static function boot()
     {
 
