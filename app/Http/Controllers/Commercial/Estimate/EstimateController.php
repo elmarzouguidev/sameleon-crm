@@ -76,28 +76,10 @@ class EstimateController extends Controller
         return view('theme.pages.Commercial.Estimate.__create.index');
     }
 
-    public function createFromTicket(Request $request, $ticket)
-    {
-        $this->authorize('create', Estimate::class);
-        //dd('yes from ticket');
-        validator($request->route()->parameters(), [
-
-            'ticket' => ['required', 'uuid']
-
-        ])->validate();
-
-        $ticket = Ticket::whereUuid($ticket)->with('client')->firstOrFail();
-
-        $companies = app(CompanyInterface::class)->getCompanies(['id', 'name']);
-
-        return view('theme.pages.Commercial.Estimate.__create_from_ticket.index', compact('ticket', 'companies'));
-    }
-
     public function store(EstimateFormRequest $request)
     {
         // dd($request->all());
         $this->authorize('create', Estimate::class);
-
 
         $articles = $request->articles;
 
@@ -124,32 +106,10 @@ class EstimateController extends Controller
         $estimate->price_tva = $this->calculateOnlyTva($totalPrice);
 
         $estimate->client_id = $request->client;
-        $estimate->ticket_id = $request->ticket;
-        $estimate->company_id = $request->company;
 
         $estimate->save();
 
         $estimate->articles()->createMany($estimateArticles);
-
-        if ($request->ticket && $request->ticket > 0) {
-
-            $estimate->ticket()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
-
-            $estimate->ticket->statuses()->attach(
-                Status::EN_ATTENTE_DE_BON_DE_COMMAND,
-                [
-                    'user_id' => auth()->id(),
-                    'start_at' => now(),
-                    'description' => __('status.history.' . Status::EN_ATTENTE_DE_BON_DE_COMMAND, ['user' => auth()->user()->full_name, 'number' => $estimate->code])
-                ]
-            );
-        }
-
-        if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
-            //dd($request->tickets);
-            $estimate->tickets()->attach($request->tickets);
-            $estimate->tickets()->update(['status' => Status::EN_ATTENTE_DE_BON_DE_COMMAND]);
-        }
 
         $estimate->histories()->create([
             'user_id' => auth()->id(),
@@ -171,7 +131,8 @@ class EstimateController extends Controller
     public function edit(Estimate $estimate)
     {
         $this->authorize('update', $estimate);
-        $estimate->load('articles', 'tickets:id,code,uuid', 'histories')->loadCount('invoice', 'tickets');
+
+        $estimate->load('articles','histories')->loadCount('invoice');
 
         return view('theme.pages.Commercial.Estimate.__edit.index', compact('estimate'));
     }
@@ -181,6 +142,7 @@ class EstimateController extends Controller
 
         //dd($request->all(), "update");
         $this->authorize('update', $estimate);
+
         $newArticles = $request->getArticles()->map(function ($item) {
 
             return collect($item)
@@ -210,11 +172,6 @@ class EstimateController extends Controller
         $estimate->save();
         $estimate->articles()->createMany($newArticles);
 
-        if (isset($request->tickets) && is_array($request->tickets) && count($request->tickets)) {
-            //dd($request->tickets);
-            $estimate->tickets()->sync($request->tickets);
-        }
-
         $estimate->histories()->create([
             'user_id' => auth()->id(),
             'user' => auth()->user()->full_name,
@@ -231,16 +188,12 @@ class EstimateController extends Controller
         $request->validate(['estimateId' => 'required|uuid']);
 
         $estimate = Estimate::whereUuid($request->estimateId)->firstOrFail();
+
         $this->authorize('delete', $estimate);
+
         if ($estimate) {
 
             $estimate->articles()->delete();
-
-            $estimate->ticket()->update(['status' => Status::EN_ATTENTE_DE_DEVIS]);
-
-            $estimate->tickets->each->update(['status' => Status::EN_ATTENTE_DE_DEVIS]);
-
-            $estimate->tickets()->detach();
 
             $estimate->histories()->delete();
 
@@ -317,8 +270,7 @@ class EstimateController extends Controller
     public function createInvoice(Estimate $estimate)
     {
         //dd('OoOKK');
-        $estimate->load('articles', 'tickets:id,code', 'ticket:id,code', 'client:id,entreprise', 'company:id,name,prefix_invoice,invoice_start_number');
-        $estimate->loadCount('tickets', 'ticket');
+        $estimate->load('articles','client:id,entreprise');
 
         return view('theme.pages.Commercial.Invoice.__create_from_estimate.index', compact('estimate'));
     }

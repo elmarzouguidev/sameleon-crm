@@ -36,10 +36,6 @@ class EstimateUpdateFormRequest extends FormRequest
     {
         return [
             'client' => ['required', 'integer'],
-            'company' => ['required', 'integer'],
-            'ticket' => ['nullable', 'integer'],
-
-            'tickets' => ['nullable', 'array'],
 
             'estimate_date' => ['required', 'date', 'date'],
             'due_date' => ['required', 'date', 'date'],

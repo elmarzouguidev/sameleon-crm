@@ -222,20 +222,21 @@ class Estimate extends Model
 
         static::creating(function ($model) {
 
-            if ($model->company->estimates->count() <= 0) {
-                //dd('OOO empty');
-                $number = $model->company->estimate_start_number;
+
+            if (self::count() <= 0) {
+
+                $number = getDocument()->estimate_start;
+                
             } else {
-                //dd('Not empty ooo');
-                $number = ($model->company->estimates->max('code') + 1);
+
+                $number = ($model->max('code') + 1);
             }
 
-            // dd($number);
-            $estimateCode = str_pad($number, 5, 0, STR_PAD_LEFT);
+            $code = str_pad($number, 5, 0, STR_PAD_LEFT);
 
-            $model->code = $estimateCode;
+            $model->code = $code;
 
-            $model->full_number = $model->company->prefix_estimate . $estimateCode;
+            $model->full_number = getDocument()->estimate_prefix . $code;
         });
     }
 }

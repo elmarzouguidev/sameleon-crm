@@ -58,9 +58,6 @@
                                 <a href="{{ $estimate->url }}" class="text-body fw-bold">
                                     {{ $estimate->code }}
                                 </a>
-                                <p style="color:#556ee6">
-                                    <i class="bx bx-buildings"></i> {{ optional($estimate->company)->name }}
-                                </p>
                             </td>
                             <td> {{ optional($estimate->client)->entreprise }}</td>
                             <td>
