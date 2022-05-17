@@ -6,6 +6,7 @@ use App\Http\Controllers\Administration\Client\ImportClientController;
 use App\Http\Controllers\Administration\Invoice\PDFBuilderController;
 use App\Http\Controllers\Commercial\BCommand\BCommandController;
 use App\Http\Controllers\Commercial\Bill\BillController;
+use App\Http\Controllers\Commercial\BRouter\BRouterController;
 use App\Http\Controllers\Commercial\Company\CompanyController;
 use App\Http\Controllers\Commercial\Estimate\EstimateController;
 use App\Http\Controllers\Commercial\Invoice\InvoiceController;
@@ -220,6 +221,28 @@ Route::group(['prefix' => 'bons-commands'], function () {
     });
 });
 
+
+Route::group(['prefix' => 'bons-router'], function () {
+
+    Route::get('/', [BRouterController::class, 'indexFilter'])->name('brouter.index');
+    Route::get('/create', [BRouterController::class, 'create'])->name('brouter.create');
+    Route::post('/create', [BRouterController::class, 'store'])->name('brouter.createPost');
+    Route::delete('/', [BRouterController::class, 'deleteCommand'])->name('brouter.delete');
+
+    Route::post('/send', [BRouterController::class, 'sendBC'])->name('brouter.send');
+
+    Route::group(['prefix' => 'edit/order'], function () {
+
+        Route::get('/{command}', [BRouterController::class, 'edit'])->name('brouter.edit');
+        Route::post('/{command}', [BRouterController::class, 'update'])->name('brouter.update');
+        Route::delete('/delete-article', [BRouterController::class, 'deleteArticle'])->name('brouter.delete.article');
+    });
+
+    Route::group(['prefix' => 'overview/order'], function () {
+
+        Route::get('/{command}', [BRouterController::class, 'single'])->name('brouter.single');
+    });
+});
 
 Route::group(['prefix' => 'catalog'], function () {
 
