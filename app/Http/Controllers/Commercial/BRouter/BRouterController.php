@@ -45,4 +45,11 @@ class BRouterController extends Controller
 
         return view('theme.pages.Commercial.BR.index', compact('commandes'));
     }
+
+    public function create()
+    {
+        //$this->authorize('create', BCommand::class);
+
+        return view('theme.pages.Commercial.BR.__create.index');
+    }
 }

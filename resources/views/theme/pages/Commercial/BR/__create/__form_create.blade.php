@@ -11,7 +11,7 @@
                         <div class="col-lg-6">
 
                             {{-- @include('theme.pages.Commercial.Invoice.__create.__info') --}}
-                            @livewire('commercial.bon-command.info')
+                            @livewire('commercial.brouter.info')
 
                             <div class="col-lg-12">
                                 <div class="row">
@@ -33,13 +33,9 @@
                                     </div>
                                 </div>
                             </div>
-
-                            {{-- @include('theme.pages.Commercial.Invoice.__create.__send_invoice_section') --}}
-
                         </div>
 
                         <div class="col-lg-6">
-                            {{-- @include('theme.pages.Commercial.Invoice.__create.__javascript.__ajax_client') --}}
                             <div class=" mb-4">
                                 <label>Note d'administration</label>
                                 <textarea name="admin_notes" id="textarea"
@@ -81,8 +77,6 @@
                             </div>
                         </div>
                     </div>
-                    {{-- @livewire('commercial.invoice.create.articles') --}}
-
                 </div>
             </div>
             <div class="card">
