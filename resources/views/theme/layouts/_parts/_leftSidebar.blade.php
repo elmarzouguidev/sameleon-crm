@@ -108,6 +108,15 @@
                     </li>
 
                     <li>
+                        <a href="{{ route('commercial:brouter.index') }}" class="waves-effect">
+
+                            <i class="bx bx-file"></i>
+                            <span key="t-bc">Bon de router</span>
+                        </a>
+
+                    </li>
+
+                    <li>
                         <a href="{{ route('commercial:providers.index') }}" class="waves-effect">
 
                             <i class="bx bx-user"></i>
