@@ -10,7 +10,7 @@
                         <div class="input-group" id="datepicker1">
                             <input type="text" name="invoice_date" id="filterDate"
                                    class="form-control @error('invoice_date') is-invalid @enderror"
-                                   value="{{ request()->input('appFilter.GetBCDate') }}" data-date-format="dd-mm-yyyy"
+                                   value="{{ request()->input('appFilter.GetBRDate') }}" data-date-format="dd-mm-yyyy"
                                    data-date-container='#datepicker1' data-provide="datepicker" placeholder="Date">
 
                             <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>

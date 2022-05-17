@@ -36,7 +36,7 @@
                     </button>
 
                     <form id="delete-bc-single-{{ $command->uuid }}" method="post"
-                          action="{{ route('commercial:bcommandes.delete') }}">
+                          action="{{ route('commercial:brouter.delete') }}">
                         @csrf
                         @method('DELETE')
                         <input type="hidden" name="commandId" value="{{ $command->uuid }}">

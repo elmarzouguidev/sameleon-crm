@@ -11,7 +11,7 @@
         if (result) {
 
             $.ajax({
-                url: "{{ route('commercial:bcommandes.delete.article') }}",
+                url: "{{ route('commercial:brouter.delete.article') }}",
                 type: 'DELETE',
                 data: {
 

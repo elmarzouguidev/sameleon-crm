@@ -14,7 +14,7 @@
 
                     <p class="mb-2">sélectionner les emails : </p>
                     <form class="sendEstimate" id="sendBCForm-{{$command->uuid}}"
-                          action="{{ route('commercial:bcommandes.send') }}" method="post">
+                          action="{{ route('commercial:brouter.send') }}" method="post">
                         @csrf
                         <input type="hidden" name="bc" value="{{$command->uuid}}">
                         <div class="form-check">

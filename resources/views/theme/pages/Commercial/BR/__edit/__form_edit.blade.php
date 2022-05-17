@@ -10,7 +10,7 @@
                 {{ session('error') }}
             </div>
         @endif
-        <form class="repeater" action="{{ route('commercial:bcommandes.update',$command) }}" method="post">
+        <form class="repeater" action="{{ route('commercial:brouter.update',$command) }}" method="post">
             @csrf
             <div class="card">
                 <div class="card-body">

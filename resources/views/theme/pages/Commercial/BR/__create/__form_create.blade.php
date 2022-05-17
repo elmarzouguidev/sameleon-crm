@@ -1,6 +1,6 @@
 <div class="row">
     <div class="col-lg-12">
-        <form class="repeater" action="{{ route('commercial:bcommandes.createPost') }}" method="post">
+        <form class="repeater" action="{{ route('commercial:brouter.createPost') }}" method="post">
             @csrf
             <div class="card">
                 <div class="card-body">

@@ -5,7 +5,7 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <div class="col-lg-4 mb-4">
-                            <a href="{{ route('commercial:bcommandes.create') }}" type="button" class="btn btn-info">
+                            <a href="{{ route('commercial:brouter.create') }}" type="button" class="btn btn-info">
                                 Créer un bon de RETOUR
                             </a>
                         </div>
@@ -119,7 +119,7 @@
                                 </div>
                             </td>
                             {{--<form id="delete-command-{{ $document->uuid }}" method="post"
-                                  action="{{ route('commercial:bcommandes.delete') }}">
+                                  action="{{ route('commercial:brouter.delete') }}">
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="commandId" value="{{ $document->uuid }}">

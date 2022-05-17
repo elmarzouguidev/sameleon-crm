@@ -6,10 +6,10 @@
             <div class="page-title-right">
                 <ol class="breadcrumb m-0">
                     <li class="breadcrumb-item">
-                        <a href="{{ route('commercial:bcommandes.create') }}">Créer un bon de RETOUR</a>
+                        <a href="{{ route('commercial:brouter.create') }}">Créer un bon de RETOUR</a>
                     </li>
                     <li class="breadcrumb-item active">
-                        <a href="{{ route('commercial:bcommandes.index') }}"> Liste des bons de RETOUR</a>
+                        <a href="{{ route('commercial:brouter.index') }}"> Liste des bons de RETOUR</a>
                     </li>
                 </ol>
             </div>
