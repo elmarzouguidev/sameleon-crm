@@ -91,7 +91,7 @@ class RouteServiceProvider extends ServiceProvider
     {
 
         Route::middleware(['web', 'auth'])
-            ->prefix('app/commercial')
+            ->prefix('app/sameleon')
             ->name('commercial:')
             ->namespace($this->namespace)
             ->group(base_path('routes/app-routes/commercial_routes.php'));

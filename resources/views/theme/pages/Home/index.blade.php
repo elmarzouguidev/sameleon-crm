@@ -22,9 +22,9 @@
             @include('theme.pages.Home.sections.section_a_orders')
         </div>
 
-        <div class="row">
+        {{--<div class="row">
             @include('theme.pages.Home.sections.section_a_chart')
-        </div>
+        </div>--}}
 
         @role('SuperAdmin')
             <div class="row">

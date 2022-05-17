@@ -2,7 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\Category;
+use App\Models\Catalog\Category as CatalogCategory;
+
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Str;
 
@@ -30,7 +31,7 @@ class CategorySeeder extends Seeder
 
             foreach ($this->cates as $category) {
 
-                Category::create($category);
+                CatalogCategory::create($category);
             }
         }
     }
