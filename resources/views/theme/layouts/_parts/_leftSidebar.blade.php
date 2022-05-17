@@ -16,7 +16,7 @@
                 </li>
 
                 @if (auth()->user()->hasAnyRole('Admin', 'SuperAdmin'))
-                    <li class="menu-title" key="t-apps">{{ __('navbar.commercial') }}</li>
+                    <li class="menu-title" key="t-apps">Sameleon COMMERCIAL</li>
                     {{-- <li>
                         <a href="{{ route('commercial:estimates.index') }}" class="waves-effect">
                             <i class="bx bx-file-blank"></i>
@@ -134,13 +134,13 @@
                     </li>
                 @endif
 
-                <li class="menu-title" key="t-pages">{{ __('navbar.authentification') }}</li>
+                <li class="menu-title" key="t-pages">Utilisateurs</li>
 
                 <li>
                     <a href="{{ route('admin:admins') }}" class="waves-effect">
 
                         <i class="bx bx-user-circle"></i>
-                        <span key="t-authentication">{{ __('navbar.authentification') }}</span>
+                        <span key="t-authentication">Utilisateurs</span>
                     </a>
 
                 </li>
@@ -148,8 +148,8 @@
                 <li class="menu-title" key="t-components">{{ __('navbar.advanced') }}</li>
                 <li>
                     <a href="javascript: void(0);" class="waves-effect">
-
-                        <span key="t-authentication">{{ __('navbar.roles_permissions') }}</span>
+                        <i class="bx bx-check-shield"></i>
+                        <span key="t-permissions">Permissions</span>
                     </a>
                     <ul class="sub-menu" aria-expanded="false">
                         <li><a href="{{ route('admin:permissions-roles.index') }}"
@@ -162,6 +162,7 @@
 
                 <li>
                     <a href="{{ route('admin:admins') }}" class="waves-effect">
+                        <i class="bx bx-cog"></i>
                         <span key="t-settings">Settings</span>
                     </a>
 
