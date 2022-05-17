@@ -124,20 +124,13 @@
                         </a>
 
                     </li>
-
                     <li>
-                        <a href="javascript: void(0);" class="has-arrow waves-effect">
-                            <i class="bx bxs-user-detail"></i>
-                            <span key="t-clients">{{ __('navbar.clients') }}</span>
-                        </a>
-                        <ul class="sub-menu" aria-expanded="false">
-                            <li><a href="{{ route('commercial:clients.index') }}"
-                                    key="t-clients-list">{{ __('navbar.clients') }}</a></li>
-                            <li><a href="{{ route('commercial:clients.create') }}"
-                                    key="t-create-clients">{{ __('navbar.clients_add') }}</a>
-                            </li>
+                        <a href="{{ route('commercial:clients.index') }}" class="waves-effect">
 
-                        </ul>
+                            <i class="bx bxs-user-detail"></i>
+                            <span key="t-clients">Clients</span>
+                        </a>
+
                     </li>
                 @endif
 
